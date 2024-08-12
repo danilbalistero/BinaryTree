@@ -94,5 +94,29 @@ public class ArvoreBinaria {
             }
         }
 
+        //no com um filho a direita
+        if(atual.getEsq() == null && atual.getDir() != null) {
+            if (pai == null) {
+                raiz = atual.getDir();
+            } else if (pai.getEsq() == atual) {
+                pai.setEsq(atual.getDir());
+            } else {
+                pai.setDir(atual.getDir());
+            }
+        }
+
+        //no com um filho a esquerda
+        if (atual.getDir() == null && atual.getEsq() != null){
+            if (pai == null) {
+                raiz = atual.getEsq();
+            } else if (pai.getDir() == atual) {
+                pai.setDir(atual.getEsq());
+            } else {
+                pai.setEsq(atual.getEsq());
+            }
+        }
+
+
+
     }
 }
