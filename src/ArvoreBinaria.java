@@ -66,18 +66,33 @@ public class ArvoreBinaria {
         No atual = this.raiz;
         No pai = null;
 
-        while (atual != null){
-            if (atual.getValor() == valor){
-                return;
-            } else if (valor < atual.getValor()) {
-                atual = atual.getEsq(); // se o valor for menor q o atual, para a esquerda
+        while (atual.getValor() != valor) {
+            pai = atual;
+            if (valor < atual.getValor()) {
+                atual = atual.getEsq();
             } else {
-                atual = atual.getDir(); // se for maior, para a direita
+                atual = atual.getDir();
             }
         }
 
+        //se o no nao foi encontrado
+        if (atual == null) {
+            System.out.println("Valor não encontrado na árvore.");
+            return;
+        }
 
-
+        //no folha
+        if (atual.getEsq() == null && atual.getDir() == null){
+            if (pai == null) {
+                raiz = null;
+            } else {
+                if (pai.getEsq() == atual) {
+                    pai.setEsq(null);
+                } else {
+                    pai.setDir(null);
+                }
+            }
+        }
 
     }
 }
