@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class ArvoreBinaria {
     private No raiz;
 
@@ -84,7 +87,7 @@ public class ArvoreBinaria {
         //no folha
         if (atual.getEsq() == null && atual.getDir() == null){
             if (pai == null) {
-                raiz = null;
+                raiz = null; //se não tiver um pai, é a raiz e com isto é apenas colocar null
             } else {
                 if (pai.getEsq() == atual) {
                     pai.setEsq(null);
@@ -95,9 +98,9 @@ public class ArvoreBinaria {
         }
 
         //no com um filho a direita
-        if(atual.getEsq() == null && atual.getDir() != null) {
+        if(atual.getEsq() == null && atual.getDir() != null) { //se atual esquerda = null e atual direita diferente de null
             if (pai == null) {
-                raiz = atual.getDir();
+                raiz = atual.getDir(); //passa a ser filho direto do nó
             } else if (pai.getEsq() == atual) {
                 pai.setEsq(atual.getDir());
             } else {
@@ -116,7 +119,22 @@ public class ArvoreBinaria {
             }
         }
 
+        //no com dois filhos
+        if(atual.getDir() != null && atual.getEsq() != null){ //verificando se contem dois filhos
+            No sucessor = atual.getDir();
+            No paiSucessor = atual;
+            while (sucessor.getEsq() != null) { //encontrando o menor nó da subarvore esquerda
+                paiSucessor = sucessor;
+                sucessor = sucessor.getEsq();
+            }
 
-
+            atual.setValor(sucessor.getValor()); //copia o valor do sucessor no nó atual
+            //remove o sucessor
+            if (paiSucessor == atual) {
+                paiSucessor.setDir(sucessor.getDir());
+            } else {
+                paiSucessor.setEsq(sucessor.getDir());
+            }
+        }
     }
 }
